@@ -1,7 +1,7 @@
 import socket
 import sys
 import time
-# source :https://pymotw.com/2/socket/tcp.html
+# reference :https://pymotw.com/2/socket/tcp.html
 
 # Create a TCP/IP et
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
