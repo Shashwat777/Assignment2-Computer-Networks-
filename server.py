@@ -1,7 +1,7 @@
 import socket
 import sys
 
-# Create a TCP/IP socket
+# source :https://pymotw.com/2/socket/tcp.html
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Bind the socket to the port
 server_address = ('localhost', 10000)
