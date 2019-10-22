@@ -1,42 +1,27 @@
 import socket
-import sys
 import time
-# reference :https://pymotw.com/2/socket/tcp.html
 
-# Create a TCP/IP et
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = socket.socket()
+s.connect(('localhost',1999))
+total=20480
+print ("total data size: "+str(total))
+for j in  [2,4,5,8,10,16,20,32,40,80]:
+ times=j
+ a=time.time()
 
-# Connect the et to the port where the server is listening
-server_address = ('localhost', 10000)
-print >>sys.stderr, 'connecting to %s port %s' % server_address
-sock.connect(server_address)
-try:
+ mlen=total/j
+ for i in range(times):                  # Send integers from 0 to 9
 
-    # Send data
-    message = 'a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket=ient reaches out to the serverSocker. , while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket programming is a way of connecting two nodes on a network to communicate with each other. One on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serveruu'
-    print ("sending data of size: "+str(sys.getsizeof(message)))
-    sent_time = int(round(time.time() * 1000))
-    sock.sendall(message)
+    z=str(j)*(mlen)
+    s.sendall(z)
+    d1=s.recv(20480)
+    # print("Client Received")
+    # print(d1)
 
-    # Look for the response
-    amount_received = 0
-    amount_expected = len(message)
-    data=""
+ b=time.time()
+ print("message size :"+ str(mlen))
 
-    while True:
+ print ("Number of messages:" +str(times))
 
-        data = sock.recv(1)
-
-
-        ackRcvd_time = int(round(time.time() * 1000))
-        if(data=="A"):
-            break
-
-    print ("Ack rcvd:"+data)
-    print (str(ackRcvd_time-sent_time)+"ms Round trip delay")
-
-
-
-finally:
-    print >>sys.stderr, 'closing socket'
-    sock.close()
+ print("time took  :"+ str(b-a))
+s.close()
