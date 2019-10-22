@@ -1,42 +1,37 @@
 import socket
-import sys
 import time
-# reference :https://pymotw.com/2/socket/tcp.html
+import sys
 
-# Create a TCP/IP et
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+total=20480 #Total data
+print ("Total data size: "+str(total))
+print("")
 
-# Connect the et to the port where the server is listening
-server_address = ('localhost', 10000)
-print >>sys.stderr, 'connecting to %s port %s' % server_address
-sock.connect(server_address)
-try:
+for j in  [2,4,5,8,10,16,20,32,40,80,160,64,128,256,516,1024]: #How many messages to send
 
-    # Send data
-    message = 'a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket=ient reaches out to the serverSocker. , while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serverSocket programming is a way of connecting two nodes on a network to communicate with each other. One on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the serveruu'
-    print ("sending data of size: "+str(sys.getsizeof(message)))
-    sent_time = int(round(time.time() * 1000))
-    sock.sendall(message)
+   a=time.time()                           #start time
+   times=j
 
-    # Look for the response
-    amount_received = 0
-    amount_expected = len(message)
-    data=""
+   mlen=total/j                               #Each Message Length
 
-    while True:
-
-        data = sock.recv(1)
-
-
-        ackRcvd_time = int(round(time.time() * 1000))
-        if(data=="A"):
-            break
-
-    print ("Ack rcvd:"+data)
-    print (str(ackRcvd_time-sent_time)+"ms Round trip delay")
+   for i in range(times):                  # Send integers from 0 to 9
+      s = socket.socket()
+      s.connect(('localhost',1999))
+      z=(str(j)[0])*(mlen)
+      s.sendall(z)
+      d1=s.recv(13000)
+      # Ack
+      # print("Ack  Received "+str(d1))
+      # Ack validation , print false upon wrong  ack (for throughput)
+      if(int(str(j)[0])+1!=int(d1)):
+          print ("false")
 
 
+      s.close()
+   b=time.time()
+   print("")
+   print("Each Message size :"+ str(mlen))
 
-finally:
-    print >>sys.stderr, 'closing socket'
-    sock.close()
+   print ("Number of messages:" +str(times))
+
+   print("Round-Trip Time(RTT)  :"+ str(b-a))
+   print("")
