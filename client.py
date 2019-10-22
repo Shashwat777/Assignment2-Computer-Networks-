@@ -23,20 +23,4 @@ try:
     amount_expected = len(message)
     data=""
 
-    while True:
 
-        data = sock.recv(1)
-
-
-        ackRcvd_time = int(round(time.time() * 1000))
-        if(data=="A"):
-            break
-
-    print ("Ack rcvd:"+data)
-    print (str(ackRcvd_time-sent_time)+"ms Round trip delay")
-
-
-
-finally:
-    print >>sys.stderr, 'closing socket'
-    sock.close()
